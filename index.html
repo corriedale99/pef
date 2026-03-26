@@ -143,16 +143,21 @@
 
         /* リンク集（ボタン） */
         .links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            display: flex; /* gridからflexに変更：ボタンの数に合わせて柔軟に並びます */
+            flex-wrap: wrap; /* 入りきらない時は折り返す */
+            justify-content: center; /* 中央に寄せる */
+            gap: 12px; /* 隙間を少しだけ詰めると4つ並びやすくなります */
             margin-top: 30px;
         }
 
         .btn {
+            flex: 1; /* 可能な限り横に広がる */
+            min-width: 160px; /* 最低幅を少し下げる */
+            max-width: 250px; /* 広がりすぎを防止 */
+            
             display: block;
             text-align: center;
-            padding: 15px;
+            padding: 15px 10px; /* 左右の余白を少し削る */
             background: white;
             color: #333;
             text-decoration: none;
@@ -160,6 +165,7 @@
             border: 2px solid var(--primary-blue);
             font-weight: bold;
             transition: 0.3s;
+            font-size: 1.0rem; /* 文字をほんの少し小さくすると1行に収まりやすくなります */
         }
 
         .btn:hover {
