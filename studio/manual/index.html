@@ -1,1 +1,1084 @@
-.
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PEFスタジオ簡易マニュアル｜v1.7-2 用語集統合・検証版</title>
+  <style>
+    :root {
+      --ink: #243447;
+      --muted: #607085;
+      --navy: #234b73;
+      --blue: #3178b8;
+      --blue-soft: #eaf5ff;
+      --cyan-soft: #edfafa;
+      --paper: #ffffff;
+      --line: #d7e2ec;
+      --warm: #fff7e6;
+      --warm-line: #e9bd55;
+      --danger: #fff0ef;
+      --danger-line: #d86b61;
+      --ok: #edf8f0;
+      --ok-line: #65a979;
+      --shadow: 0 8px 24px rgba(35, 75, 115, .10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #f4f8fb;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", sans-serif;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--blue); }
+    img { max-width: 100%; height: auto; }
+    code {
+      padding: .1em .38em;
+      border: 1px solid #d9e1e8;
+      border-radius: 5px;
+      background: #f6f8fa;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .92em;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 10;
+      padding: .7rem 1rem;
+      background: #fff;
+    }
+    .skip-link:focus { left: 1rem; top: 1rem; }
+
+    .hero {
+      color: #fff;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(124, 211, 221, .36), transparent 28%),
+        linear-gradient(135deg, #183b60, #2c699d 72%, #398ca3);
+    }
+    .hero-inner {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 66px 0 58px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4.5vw, 3.7rem);
+      line-height: 1.25;
+      letter-spacing: .03em;
+    }
+    .hero-lead {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: #eef8ff;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 24px;
+      margin-top: 28px;
+      color: #dceefa;
+      font-size: .9rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 28px;
+      width: min(1180px, calc(100% - 40px));
+      margin: 30px auto 72px;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      padding: 18px 18px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 4px 18px rgba(35,75,115,.07);
+    }
+    .toc h2 { margin: 0 0 8px; font-size: 1rem; }
+    .toc-group + .toc-group { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .toc-group h3 { margin: 0 0 5px; color: var(--navy); font-size: .8rem; letter-spacing: .06em; }
+    .toc ol { margin: 0; padding-left: 1.45rem; }
+    .toc li { margin: .15rem 0; font-size: .82rem; line-height: 1.5; }
+    .toc a { color: #42556b; text-decoration: none; }
+    .toc a:hover, .toc a:focus { color: var(--blue); text-decoration: underline; }
+    .toc-link-with-screen {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .toc-screen {
+      flex: none;
+      padding: 0 5px;
+      border-radius: 999px;
+      color: #45677f;
+      background: #edf5fa;
+      font-size: .68rem;
+      white-space: nowrap;
+    }
+
+    main { min-width: 0; }
+    .section {
+      margin-bottom: 26px;
+      padding: clamp(24px, 4vw, 42px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 18px;
+    }
+    .section-number {
+      margin: 0 0 3px;
+      color: var(--blue);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .section h2 {
+      margin: 0 0 18px;
+      color: var(--navy);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.4;
+    }
+    .section h3 { margin: 1.6rem 0 .5rem; color: #315777; font-size: 1.08rem; }
+    .section p { margin: .6rem 0; }
+    .section ul, .section ol { padding-left: 1.4rem; }
+    .section li + li { margin-top: .35rem; }
+
+    .lead-box {
+      padding: 18px 20px;
+      border-left: 5px solid var(--blue);
+      border-radius: 0 10px 10px 0;
+      background: var(--blue-soft);
+    }
+    .callout {
+      margin: 18px 0;
+      padding: 15px 18px;
+      border: 1px solid var(--warm-line);
+      border-radius: 11px;
+      background: var(--warm);
+    }
+    .callout.danger { border-color: var(--danger-line); background: var(--danger); }
+    .callout.ok { border-color: var(--ok-line); background: var(--ok); }
+    .callout-title { display: block; margin-bottom: 3px; font-weight: 700; }
+    .callout.danger .callout-title::before { content: "注意｜"; }
+    .callout.ok .callout-title::before { content: "確認｜"; }
+
+    .screen-map {
+      margin: 20px 0 24px;
+      padding: clamp(18px, 3vw, 28px);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+    .screen-map-flow {
+      display: grid;
+      justify-items: center;
+      gap: 0;
+      margin: 18px 0 0;
+    }
+    .screen-map-node {
+      width: min(100%, 300px);
+      padding: 14px 16px;
+      border: 1px solid #b8cbe0;
+      border-radius: 12px;
+      color: var(--ink);
+      line-height: 1.45;
+      text-align: center;
+    }
+    .screen-map-node strong,
+    .screen-map-node span { display: block; }
+    .screen-map-node strong { font-size: 1rem; }
+    .screen-map-node span { margin-top: 3px; font-size: .86rem; }
+    .screen-map-node--hub { background: #EEF8FF; }
+    .screen-map-node--detail {
+      border: 2px solid #6FA8C8;
+      font-size: 1.08rem;
+    }
+    .screen-map-node--detail strong { font-size: 1.08rem; }
+    .screen-map-arrow {
+      width: 2px;
+      height: 24px;
+      background: #7d9eb5;
+    }
+    .screen-map-arrow::after {
+      display: block;
+      width: 0;
+      height: 0;
+      margin: 21px 0 0 -4px;
+      border-top: 6px solid #7d9eb5;
+      border-right: 5px solid transparent;
+      border-left: 5px solid transparent;
+      content: "";
+    }
+    .screen-map-work-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .screen-map-work-grid li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-width: 0;
+      min-height: 94px;
+      margin: 0;
+      padding: 12px 10px;
+      border: 1.5px solid #CDBFA9;
+      border-radius: 12px;
+      background: #FAF7F0;
+      color: var(--ink);
+      font-size: .88rem;
+      font-weight: 700;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .screen-map-note {
+      margin: 16px 0 0 !important;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    .screen-map-followup {
+      margin: 12px 0 0 !important;
+      padding-left: 0 !important;
+      list-style: none;
+    }
+    .screen-map-followup li {
+      position: relative;
+      padding-left: 1.2em;
+    }
+    .screen-map-followup li::before {
+      position: absolute;
+      left: 0;
+      content: "＊";
+    }
+    @media (min-width: 901px) {
+      .screen-map-work-grid li:not(:last-child)::after {
+        position: absolute;
+        top: 50%;
+        right: -11px;
+        z-index: 1;
+        color: #9f927e;
+        content: "→";
+        font-size: .9rem;
+        line-height: 1;
+        transform: translateY(-50%);
+      }
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .card {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #fbfdff;
+    }
+    .card h3 { margin: 0 0 6px; }
+    .card p { font-size: .94rem; }
+
+    figure {
+      margin: 24px 0 8px;
+      padding: 10px;
+      border: 1px solid #cbd9e5;
+      border-radius: 13px;
+      background: #f8fbfd;
+    }
+    figure img {
+      display: block;
+      width: 100%;
+      border: 1px solid #d7e1e9;
+      border-radius: 8px;
+      background: #fff;
+    }
+    .screenshot-link {
+      display: block;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .screenshot-link:focus-visible {
+      outline: 4px solid #e9bd55;
+      outline-offset: 4px;
+    }
+    figcaption {
+      padding: 10px 5px 3px;
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.55;
+    }
+    .figure-label { color: var(--navy); font-weight: 700; }
+    .image-open-hint { display: block; margin-top: 3px; color: #365f7d; }
+    .back-to-top {
+      margin: 26px 0 0;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      text-align: right;
+      font-size: .88rem;
+    }
+
+    .checklist { list-style: none; padding-left: 0 !important; }
+    .checklist li { position: relative; padding-left: 1.8rem; }
+    .checklist li::before {
+      position: absolute;
+      left: 0;
+      top: .12rem;
+      color: #358354;
+      content: "□";
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .table-wrap { max-width: 100%; overflow-x: auto; }
+    .table-wrap:focus-visible { outline: 3px solid #e9bd55; outline-offset: 2px; }
+    table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    th, td { padding: 11px 12px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { background: #eaf4fb; color: var(--navy); }
+    tbody tr:nth-child(even) { background: #f9fbfd; }
+    .glossary-table { min-width: 680px; }
+    .glossary-table caption { padding: 0 0 10px; color: var(--muted); text-align: left; }
+    .glossary-table tbody th { width: 22%; background: #f3f8fc; }
+    .glossary-table tbody td:nth-child(2) { width: 18%; white-space: nowrap; }
+    .glossary-table tbody td:nth-child(3) { width: 60%; }
+    .glossary-meta { color: var(--muted); font-size: .92rem; }
+
+    .glossary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 18px;
+    }
+    .glossary div { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    .glossary dt { color: var(--navy); font-weight: 700; }
+    .glossary dd { margin: 3px 0 0; color: var(--muted); font-size: .92rem; }
+
+    .page-end {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: static; max-height: none; }
+      .toc ol { columns: 2; column-gap: 28px; }
+      .screen-map-work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 820px) {
+      .glossary-table { min-width: 0; table-layout: fixed; }
+      .glossary-table tbody th { width: 24%; overflow-wrap: anywhere; }
+      .glossary-table tbody td:nth-child(2) { width: 19%; white-space: normal; overflow-wrap: anywhere; }
+      .glossary-table tbody td:nth-child(3) { width: 57%; overflow-wrap: anywhere; }
+    }
+    @media (max-width: 620px) {
+      .hero-inner, .layout { width: min(100% - 24px, 1180px); }
+      .hero-inner { padding: 45px 0 40px; }
+      .layout { margin-top: 18px; }
+      .section { padding: 22px 18px; }
+      .toc ol { columns: 1; }
+      .cards, .glossary { grid-template-columns: 1fr; }
+      .screen-map-work-grid { grid-template-columns: 1fr; }
+      .screen-map-work-grid li { min-height: auto; }
+      figure { margin-left: -8px; margin-right: -8px; padding: 5px; }
+      figcaption { padding: 9px 7px 5px; }
+      table { min-width: 540px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+    @media print {
+      body { background: #fff; font-size: 10pt; }
+      .hero { color: #111; background: #fff; border-bottom: 2px solid #234b73; }
+      .hero-lead, .hero-meta { color: #333; }
+      .layout { display: block; width: 100%; margin: 0; }
+      .toc { position: static; box-shadow: none; margin: 20px 0; }
+      .section { box-shadow: none; break-inside: avoid; }
+      .screen-map { break-inside: avoid; }
+      #s19 { break-inside: auto; }
+      #s19 tr { break-inside: avoid; }
+      figure { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>PEFスタジオ<br>簡易マニュアル</h1>
+      <p class="hero-lead">原稿の取り込みから、音声付きEPUBのダウンロードまで。最初の一冊を完成させるための流れを、実際の画面で案内します。</p>
+      <div class="hero-meta">
+        <span>用語集統合・検証版</span>
+        <span>対象：PEF2 / PEFスタジオ v1.7-2</span>
+        <span>更新：2026年7月20日</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="toc" aria-label="目次">
+      <h2>目次（チャプター）</h2>
+      <div class="toc-group">
+        <h3>最初の一冊</h3>
+        <ol>
+          <li><a href="#s1">はじめに</a></li>
+          <li><a href="#s2">できること</a></li>
+          <li><a href="#s3">全体の流れ</a></li>
+          <li><a href="#s4">準備</a></li>
+          <li><a href="#s5">原稿を用意</a></li>
+          <li><a class="toc-link-with-screen" href="#s6"><span>作品作成・原稿取込</span><span class="toc-screen">画面1〜3</span></a></li>
+          <li><a class="toc-link-with-screen" href="#s7"><span>辞書編集</span><span class="toc-screen">画面4</span></a></li>
+          <li><a class="toc-link-with-screen" href="#s8"><span>読み・息継ぎ編集</span><span class="toc-screen">画面5</span></a></li>
+          <li><a href="#s9">読みを確定</a></li>
+          <li><a class="toc-link-with-screen" href="#s10"><span>画像・代替テキスト</span><span class="toc-screen">画面6・7</span></a></li>
+          <li><a class="toc-link-with-screen" href="#s11"><span>音声設定</span><span class="toc-screen">画面8</span></a></li>
+          <li><a class="toc-link-with-screen" href="#s12"><span>音声生成</span><span class="toc-screen">画面9</span></a></li>
+          <li><a class="toc-link-with-screen" href="#s13"><span>EPUB生成・保存</span><span class="toc-screen">画面10・11</span></a></li>
+          <li><a href="#s14">完成後の確認</a></li>
+        </ol>
+      </div>
+      <div class="toc-group">
+        <h3>確認と作り直し</h3>
+        <ol start="15">
+          <li><a href="#s15">作り直しの目安</a></li>
+          <li value="18"><a href="#s18">困ったとき</a></li>
+        </ol>
+      </div>
+      <div class="toc-group">
+        <h3>補足</h3>
+        <ol start="16">
+          <li><a class="toc-link-with-screen" href="#s16"><span>全体設定</span><span class="toc-screen">画面1</span></a></li>
+          <li><a href="#s17">AI機能の注意</a></li>
+          <li value="19"><a href="#s19">PEFスタジオ用語集</a></li>
+        </ol>
+      </div>
+    </nav>
+
+    <main id="main">
+      <section class="section" id="s1">
+        <p class="section-number">チャプター 01</p>
+        <h2>はじめに</h2>
+        <div class="lead-box">
+          <p>PEFスタジオは、文章・画像・読み上げ音声をまとめて、音声付きEPUBを作るための画面です。この簡易マニュアルでは、まず一冊を完成させるために必要な操作だけを順番に説明します。</p>
+        </div>
+        <p>最初からすべてを完璧にする必要はありません。AI機能や画像は任意です。辞書と読みを確認し、必要な画像と音声設定を整えて、最後にEPUBを生成します。</p>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s2">
+        <p class="section-number">チャプター 02</p>
+        <h2>PEFスタジオでできること</h2>
+        <div class="cards">
+          <div class="card"><h3>文章を取り込む</h3><p>テキストファイルを作品として登録し、章や本文として扱います。</p></div>
+          <div class="card"><h3>読みを整える</h3><p>固有名詞などの読みを辞書へ登録し、息継ぎ位置を編集・確認します。</p></div>
+          <div class="card"><h3>画像を組み込む</h3><p>本文の画像マーカーに対応する画像と代替テキスト（alt）を編集・確認します。</p></div>
+          <div class="card"><h3>音声付きEPUBを作る</h3><p>音声設定を確認し、文章と音声が同期したEPUBを生成してダウンロードします。</p></div>
+        </div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s3">
+        <p class="section-number">チャプター 03</p>
+        <h2>完成までの全体の流れ</h2>
+        <h3>PEFスタジオの画面構成</h3>
+        <p>作品一覧で作品を選ぶと、作品詳細が開きます。作品詳細は、辞書、読み、画像、音声設定、EPUB生成の各画面へ進むための作業ホームです。</p>
+        <div class="screen-map" aria-label="PEFスタジオの画面構成図">
+          <div class="screen-map-flow">
+            <div class="screen-map-node screen-map-node--hub"><strong>作品一覧</strong><span>作品を選ぶ</span></div>
+            <span class="screen-map-arrow" aria-hidden="true"></span>
+            <div class="screen-map-node screen-map-node--hub screen-map-node--detail"><strong>作品詳細</strong><span>この作品の作業ホーム</span></div>
+            <span class="screen-map-arrow" aria-hidden="true"></span>
+            <ul class="screen-map-work-grid" aria-label="作品詳細から進む作業画面">
+              <li>辞書を準備・確認</li>
+              <li>読みと息継ぎ編集</li>
+              <li>画像追加</li>
+              <li>音声設定</li>
+              <li>EPUB生成</li>
+            </ul>
+          </div>
+          <p class="screen-map-note">ブルーは作品を選び、全体を確認する画面です。クリーム色は個別の作業を行う画面です。作業中に迷ったときは、「作品詳細」へ戻ってください。</p>
+          <ul class="screen-map-followup">
+            <li>画像がない作品では画像工程を飛ばせます。</li>
+            <li>デフォルト音声でよい場合は音声設定も飛ばせます。</li>
+          </ul>
+        </div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s4">
+        <p class="section-number">チャプター 04</p>
+        <h2>作業を始める前の準備</h2>
+        <ul class="checklist">
+          <li>PEFスタジオが起動している</li>
+          <li>テキストファイルの原稿がある</li>
+          <li>画像を使う場合は、PNG / JPG / JPEGで用意している</li>
+          <li>VOICEVOXが起動している</li>
+          <li>生成したEPUBを確認できるリーダーがある</li>
+        </ul>
+        <div class="callout"><span class="callout-title">AI機能は任意です</span>AIを使わなくても、辞書や代替テキストを手作業で入力して作品を完成できます。</div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s5">
+        <p class="section-number">チャプター 05</p>
+        <h2>原稿を用意する</h2>
+        <p>原稿は、1作品として読みたい範囲を <code>.txt</code> ファイルにまとめます。通常のテキスト原稿は、文字コードを事前に変換せず取り込めます。</p>
+        <div class="callout"><span class="callout-title">Wordで原稿を作る場合</span><code>.docx</code> のままでは取り込めません。「テキストのみ」の <code>.txt</code> として保存してください。</div>
+        <p>読みやすさのために、語の間へ半角・全角スペースを入れたテキストファイルも取り込めます。EPUBの本文表示には、原稿に入れたスペースが残ります。</p>
+        <p>新規取り込み時の読み上げ用テキストでは、日本語に接するスペースが自動的に除かれます。意図的な間は空白だけで指定せず、「読みと息継ぎ編集」で確認してください。</p>
+        <p>本文に画像を入れる場所は、次のいずれかの形で記します。</p>
+        <p><code>[図:sample.png]</code>　<code>[図：sample.png]</code>　<code>[図: sample.png]</code>　<code>[図： sample.png]</code></p>
+        <div class="callout"><span class="callout-title">ファイル名を一致させます</span>原稿のマーカーに書いた画像名と、あとで取り込む画像ファイル名を同じにしてください。</div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s6">
+        <p class="section-number">チャプター 06</p>
+        <h2>作品を作成し、原稿を取り込む</h2>
+        <ol>
+          <li>作品一覧で「テキスト原稿を取り込む」を選びます。</li>
+          <li>「作品名」と「.txt ファイル」を指定し、「取り込む」を押します。</li>
+          <li>作成された作品を開き、作品詳細を確認します。</li>
+        </ol>
+        <figure>
+          <a class="screenshot-link" href="images/01-works.png" target="_blank" rel="noopener" aria-label="画面1 作品一覧を原寸で新しいタブに開く">
+            <img src="images/01-works.png" alt="作品一覧画面。新しい作品を取り込む入口、登録作品、読み上げ速度を含む全体設定を確認する画面">
+          </a>
+          <figcaption><span class="figure-label">画面 1｜作品一覧</span>　ここから新しい作品を取り込むか、続きから編集する作品を選びます。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <figure>
+          <a class="screenshot-link" href="images/02-import-text.png" target="_blank" rel="noopener" aria-label="画面2 テキスト原稿取り込みを原寸で新しいタブに開く">
+            <img src="images/02-import-text.png" alt="テキスト原稿取り込み画面。作品名とtxtファイルを指定する画面">
+          </a>
+          <figcaption><span class="figure-label">画面 2｜テキスト原稿取り込み</span>　原稿を選び、作品として登録します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <figure>
+          <a class="screenshot-link" href="images/03-work-detail.png" target="_blank" rel="noopener" aria-label="画面3 作品詳細を原寸で新しいタブに開く">
+            <img src="images/03-work-detail.png" alt="作品詳細画面。辞書、読み、画像、音声設定、EPUBの各工程へ進む画面">
+          </a>
+          <figcaption><span class="figure-label">画面 3｜作品詳細（各作業への入口）</span>　各工程の入口です。作業状態や再生成が必要かどうかも、ここで確認します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <div class="callout"><span class="callout-title">迷ったら作品詳細へ戻る</span>作品詳細は、各編集画面をつなぐ中心の画面です。辞書、読み、画像、音声、EPUBの作業後はここへ戻り、次に行うことを確認します。</div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s7">
+        <p class="section-number">チャプター 07</p>
+        <h2>辞書を確認する</h2>
+        <p>読み間違えやすい語を、作品専用の辞書へ登録します。候補を一件ずつ確認し、「表記」と「よみ」を決めてください。</p>
+        <ol>
+          <li>作品詳細から「辞書を編集する」を開きます。</li>
+          <li>必要な語を追加または修正します。</li>
+          <li>例として「夜だか」→「よだか」のように読みを登録します。</li>
+        </ol>
+        <figure>
+          <a class="screenshot-link" href="images/04-dictionary-review.png" target="_blank" rel="noopener" aria-label="画面4 辞書編集を原寸で新しいタブに開く">
+            <img src="images/04-dictionary-review.png" alt="辞書編集画面。夜だかの読みをよだかとして登録し、採否を確認している">
+          </a>
+          <figcaption><span class="figure-label">画面 4｜辞書編集</span>　「辞書準備」が現在地のうちに、表記と読みを確認して保存します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s8">
+        <p class="section-number">チャプター 08</p>
+        <h2>読みと息継ぎを編集する</h2>
+        <p>辞書を反映した本文を読みながら、ルビと息継ぎ位置を編集・確認します。不自然な箇所だけを直し、前後の文章も一緒に見ます。</p>
+        <div class="callout"><span class="callout-title">読みを指定する</span>読み上げ用テキストで、<code>|今日《きょう》</code> のように「|表記《よみ》」と入力します。</div>
+        <div class="callout"><span class="callout-title">息継ぎを追加する</span>読み上げ用テキストで、間を入れたい位置に読点「、」を入力します。例：<code>今日は、よい天気です。</code></div>
+        <p>ここで変更するのは読み上げ用テキストです。EPUBに表示する本文、章、画像位置は変わりません。</p>
+        <figure>
+          <a class="screenshot-link" href="images/05-reading-edit.png" target="_blank" rel="noopener" aria-label="画面5 読みと息継ぎ編集を原寸で新しいタブに開く">
+            <img src="images/05-reading-edit.png" alt="読みと息継ぎ編集画面。読み上げ用テキストとルビを確認する画面">
+          </a>
+          <figcaption><span class="figure-label">画面 5｜読みと息継ぎ編集</span>　読み上げる単位ごとに、ルビと区切りが自然かを確認します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s9">
+        <p class="section-number">チャプター 09</p>
+        <h2>読みを確定する</h2>
+        <p>編集が終わったら「編集確定」ボタンで確定操作を行います。確定後に本文・辞書・読みを変更した場合は、音声やEPUBの作り直しが必要になることがあります。</p>
+        <div class="callout ok"><span class="callout-title">次へ進む目安</span>固有名詞の読み、数字や記号の読み方、長い文の息継ぎを確認できたら、画像の工程へ進みます。</div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s10">
+        <p class="section-number">チャプター 10</p>
+        <h2>画像と代替テキスト（alt）を編集・確認する</h2>
+        <p>画像がない作品では、この工程を飛ばせます。画像を使う場合は、原稿中の画像マーカーに対応するファイルを取り込み、画像ごとに代替テキスト（alt）を編集・確認します。</p>
+        <ul>
+          <li>対応形式：PNG / JPG / JPEG</li>
+          <li>1ファイル：10MBまで</li>
+          <li>最大50ファイル、合計100MBまで</li>
+          <li>フォルダを指定してのアップロードには対応していません</li>
+        </ul>
+        <div class="callout"><span class="callout-title">保存される画像</span>原稿に指定されていない画像、形式不正やエラーのある画像は保存されません。既存画像を置き換える場合は、「既存画像を上書きする」を明示的に選びます。</div>
+        <figure>
+          <a class="screenshot-link" href="images/06-image-alt.png" target="_blank" rel="noopener" aria-label="画面6 画像と代替テキスト確認を原寸で新しいタブに開く">
+            <img src="images/06-image-alt.png" alt="画像と代替テキストの編集・確認画面。画像、代替テキスト、装飾画像指定を確認する画面">
+          </a>
+          <figcaption><span class="figure-label">画面 6｜画像・代替テキスト確認</span>　画像の内容と、入力した説明が一致しているかを確認します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <figure>
+          <a class="screenshot-link" href="images/07-image-bulk.png" target="_blank" rel="noopener" aria-label="画面7 画像一括取り込みを原寸で新しいタブに開く">
+            <img src="images/07-image-bulk.png" alt="画像一括取り込み画面。複数ファイル選択と上書き指定を行う画面">
+          </a>
+          <figcaption><span class="figure-label">画面 7｜画像の一括取り込み</span>　複数画像を選択できます。選択後は、新規、上書き、未使用、エラーの結果を確認します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <h3>サムネイルと元画像</h3>
+        <p>画像一覧には軽いサムネイルが表示されます。大きな確認表示とEPUBには元画像が使われます。サムネイルは、作品フォルダやGoogle Driveには保存されません。</p>
+        <div class="callout"><span class="callout-title">代替テキスト（alt）とは</span>画像を見ることが難しい人へ内容を伝えるアクセシビリティ情報です。通常の本文音声では読まれず、閲覧環境によってはMedia Overlayでも読み上げられない場合があります。</div>
+        <p>内容理解に必要な画像には、人が確認した代替テキストを入力します。意味を持たない飾りは「装飾画像」にすると、代替テキストが空になります。採用順は「装飾画像指定」「人が編集した代替テキスト」「AI候補」です。AI候補は下書きです。</p>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s11">
+        <p class="section-number">チャプター 11</p>
+        <h2>音声を設定する</h2>
+        <ol>
+          <li>「声のキャラID」と「読み上げ速度」を確認します。</li>
+          <li>作品別に指定しない場合は「全体設定を使う」を選びます。全体設定は作品一覧画面で設定できます。</li>
+          <li>「試聴する」を押し、声の雰囲気と速さを確認します。</li>
+          <li>変更する場合は「この音声設定を保存する」を押します。</li>
+        </ol>
+        <p>音声設定を変更した後は、EPUBを再生成してください。新しく音声生成が行われます。</p>
+        <figure>
+          <a class="screenshot-link" href="images/08-voice-settings.png" target="_blank" rel="noopener" aria-label="画面8 音声設定と試聴を原寸で新しいタブに開く">
+            <img src="images/08-voice-settings.png" alt="音声設定と試聴画面。声のキャラIDと読み上げ速度を指定し、試聴または保存する画面">
+          </a>
+          <figcaption><span class="figure-label">画面 8｜音声設定・試聴</span>　声と読み上げ速度を短い試聴で確認し、必要なら作品の設定へ保存します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <div class="callout danger"><span class="callout-title">音声が生成できないとき</span>VOICEVOX（音声生成エンジン）が起動していないと、音声を生成できずエラーになります。VOICEVOXを起動してから、もう一度EPUBを生成してください。</div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s12">
+        <p class="section-number">チャプター 12</p>
+        <h2>音声生成の進捗を確認する</h2>
+        <p>通常は、作品全体の音声生成を単独で始める必要はありません。「EPUB生成」を押したとき、音声がない、または古い場合は、必要な音声生成が先に始まります。</p>
+        <figure>
+          <a class="screenshot-link" href="images/09-audio-progress.png" target="_blank" rel="noopener" aria-label="画面9 音声生成中の進捗を原寸で新しいタブに開く">
+            <img src="images/09-audio-progress.png" alt="音声生成中の画面。現行の読み上げ速度、進捗、キャンセル操作を確認する状態">
+          </a>
+          <figcaption><span class="figure-label">画面 9｜音声生成中</span>　処理の進み具合とキャンセル操作を確認します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <p>キャンセルを要求しても、現在の処理単位が終わるまですぐに止まらない場合があります。途中までの音声が正式成果物へ混ざることはありません。</p>
+        <div class="callout danger"><span class="callout-title">生成中の注意</span>同じ作品で別の生成操作を重ねず、画面の案内に従って完了またはキャンセルを確認してください。</div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s13">
+        <p class="section-number">チャプター 13</p>
+        <h2>EPUBを生成し、ダウンロードする</h2>
+        <p>作品詳細でEPUB生成を開始します。必要な音声が未生成、または古くなっている場合は、先に音声生成が行われます。完了後、EPUBファイルをダウンロードします。</p>
+        <figure>
+          <a class="screenshot-link" href="images/10-epub-download.png" target="_blank" rel="noopener" aria-label="画面10 EPUB生成とダウンロードを原寸で新しいタブに開く">
+            <img src="images/10-epub-download.png" alt="生成済みのEPUBカード。完成したEPUBをダウンロードする画面">
+          </a>
+          <figcaption><span class="figure-label">画面 10｜EPUB生成・ダウンロード</span>　最新の状態で生成されたEPUBを保存します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <div class="callout danger"><span class="callout-title">画像が見つからないとき</span>EPUBは警告付きで生成を続けられますが、画像が見つからなかった位置には代替の文字表示が入ります。生成直後の警告を確認し、警告がある状態を配布可能と判断しないでください。</div>
+        <figure>
+          <a class="screenshot-link" href="images/11-missing-image-warning.png" target="_blank" rel="noopener" aria-label="画面11 欠落画像の警告を原寸で新しいタブに開く">
+            <img src="images/11-missing-image-warning.png" alt="EPUB生成後の欠落画像警告。画像が見つからなかったため本文へ代替表示を入れたことを知らせる状態">
+          </a>
+          <figcaption><span class="figure-label">画面 11｜欠落画像の警告</span>　EPUB生成後の警告を確認し、欠落画像を修正してから再生成します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <ol>
+          <li>警告に表示された画像名を確認します。</li>
+          <li>原稿の画像名と画像ファイル名を合わせます。</li>
+          <li>画像を取り込み、EPUBを再生成します。</li>
+        </ol>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s14">
+        <p class="section-number">チャプター 14</p>
+        <h2>完成したEPUBを確認する</h2>
+        <ul class="checklist">
+          <li>表紙、タイトル、章の順番が正しい</li>
+          <li>本文に文字化けや欠落がない</li>
+          <li>画像が正しい位置に表示される</li>
+          <li>音声が本文と大きくずれていない</li>
+          <li>固有名詞や重要な語の読みが正しい</li>
+          <li>警告が残っていない</li>
+        </ul>
+        <p>実際に配布・閲覧する環境でも開いてください。アプリによって表示や音声同期の挙動が異なる場合があります。</p>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s15">
+        <p class="section-number">チャプター 15</p>
+        <h2>何を変えたら、何を作り直す？</h2>
+        <div class="table-wrap" role="region" aria-label="変更内容別の再生成一覧" tabindex="0">
+          <table>
+            <thead><tr><th>変更したもの</th><th>次に行うこと</th></tr></thead>
+            <tbody>
+              <tr><td>読み、息継ぎ</td><td>EPUBを再生成。必要な音声生成が先に行われます</td></tr>
+              <tr><td>画像ファイル、代替テキスト（alt）</td><td>EPUBを再生成</td></tr>
+              <tr><td>音声設定</td><td>EPUBを再生成。新しく音声生成が行われます</td></tr>
+              <tr><td>原稿本文、章、画像位置</td><td>元のtxtを直し、新しい作品として取り込み直してください</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s16">
+        <p class="section-number">チャプター 16</p>
+        <h2>全体設定</h2>
+        <p>作品一覧の「全体設定」は、新しく作る作品や、作品別の音声設定を保存していない作品に使われる標準設定です。</p>
+        <figure>
+          <a class="screenshot-link" href="images/01-works.png" target="_blank" rel="noopener" aria-label="画面1 作品一覧の全体設定を原寸で新しいタブに開く">
+            <img src="images/01-works.png" alt="作品一覧画面。新しい作品を取り込む入口、登録作品、読み上げ速度を含む全体設定を確認する画面">
+          </a>
+          <figcaption><span class="figure-label">画面 1｜作品一覧の全体設定</span>　作品一覧にある「全体設定」で、作品共通の音声設定を確認します。<span class="image-open-hint">画像を選ぶと、原寸で開きます。</span></figcaption>
+        </figure>
+        <h3>設定できること</h3>
+        <ul>
+          <li>「声のキャラID」：読み上げる声を選びます。</li>
+          <li>「読み上げ速度」：作品全体の基本の速さを選びます。</li>
+          <li>「息継ぎパラメータ」：長い文で機械的に息継ぎを入れる目安と、文末の近くで不自然に切らないための目安を調整します。</li>
+        </ul>
+        <p>通常は、標準のままで問題ありません。読み上げが速すぎる、または長い文で息継ぎが不自然なときだけ調整してください。</p>
+        <h3>保存する</h3>
+        <p>設定を変更したら、忘れずに「全体設定を保存する」を押してください。</p>
+        <p>作品ごとに別の声や速さを設定した場合は、その作品の設定が全体設定より優先されます。</p>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s17">
+        <p class="section-number">チャプター 17</p>
+        <h2>AI機能を使うときの注意（中級者編）</h2>
+        <ul>
+          <li>Gemini APIキーが必要な機能があります。</li>
+          <li>契約や利用量によって料金が発生する場合があります。</li>
+          <li>AI辞書候補を使うと、本文由来の語がAIへ送信されます。</li>
+          <li>画像代替え（alt）生成では、対象画像がAIへ送信されます。</li>
+          <li>AIが作る辞書候補と代替テキストは下書きです。必ず人が確認してください。</li>
+        </ul>
+        <div class="callout danger"><span class="callout-title">送信前に確認</span>個人情報、未公開原稿、公開できない画像を含む場合は、AIに送信しないでください。</div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s18">
+        <p class="section-number">チャプター 18</p>
+        <h2>困ったとき</h2>
+        <div class="cards">
+          <div class="card"><h3>次に進めない</h3><p>作品詳細へ戻り、未完了の項目や画面上のメッセージを上から確認します。</p></div>
+          <div class="card"><h3>読みが直らない</h3><p>辞書の表記と読みを確認し、読みと息継ぎ編集へ反映されているか見ます。</p></div>
+          <div class="card"><h3>画像が出ない</h3><p>原稿内の画像ファイル指定文字列（<code>[図:ファイル名]</code>）と、画像ファイル名、拡張子、大文字・小文字を照合します。</p></div>
+          <div class="card"><h3>音声が古い</h3><p>読みや音声設定を変更した後は、EPUBを再生成します。新しく音声生成が行われます。</p></div>
+          <div class="card"><h3>画像警告が出た</h3><p>表示された画像名を確認し、原稿とファイル名を合わせて画像を取り込み、EPUBを再生成します。</p></div>
+          <div class="card"><h3>生成をキャンセルした</h3><p>すぐに停止しない場合があります。画面が完了・失敗・キャンセルの状態になるまで確認します。</p></div>
+        </div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+      </section>
+
+      <section class="section" id="s19">
+        <p class="section-number">チャプター 19</p>
+        <h2>PEFスタジオ用語集</h2>
+        <p>PEFスタジオで使う用語を、初心者向けにまとめた完成済み用語集の52語を統合しています。</p>
+        <p class="glossary-meta">52語｜用語集出力日：2026-07-16</p>
+        <div class="table-wrap" role="region" aria-label="PEFスタジオ用語集" tabindex="0">
+          <table class="glossary-table">
+            <caption>PEFスタジオの用語と意味</caption>
+            <thead>
+              <tr><th scope="col">用語</th><th scope="col">カテゴリ</th><th scope="col">意味</th></tr>
+            </thead>
+            <tbody>
+<tr>
+          <th scope="row">息継ぎ</th>
+          <td>読みと息継ぎ</td>
+          <td>読み上げの途中に入れる短い間（ポーズ）です。「、」などで表します。</td>
+        </tr>
+        <tr>
+          <th scope="row">音声設定</th>
+          <td>音声</td>
+          <td>読み上げに使う声、速さ、音量などの設定です。</td>
+        </tr>
+        <tr>
+          <th scope="row">音声付きEPUB</th>
+          <td>EPUB</td>
+          <td>本文と音声が同期し、再生中の箇所を追いやすいEPUBです。</td>
+        </tr>
+        <tr>
+          <th scope="row">画像一括取り込み</th>
+          <td>画像</td>
+          <td>複数の画像ファイルをまとめて選び、作品へ読み込む機能です。</td>
+        </tr>
+        <tr>
+          <th scope="row">画像alt</th>
+          <td>画像alt</td>
+          <td>画像の内容を伝えるため、EPUBに入れる説明文です。対応するEPUBリーダーや支援技術で利用されます。</td>
+        </tr>
+        <tr>
+          <th scope="row">画像alt生成</th>
+          <td>AI</td>
+          <td>AIが画像を見て、画像altの案を作る機能です。結果は人が確認します。</td>
+        </tr>
+        <tr>
+          <th scope="row">画像挿入記法</th>
+          <td>原稿</td>
+          <td>原稿内で画像を入れる位置とファイル名を指定する書き方です。例：［図:sample.png］</td>
+        </tr>
+        <tr>
+          <th scope="row">旧PEF</th>
+          <td>基本</td>
+          <td>以前のPEFツールや、その形式で作られたデータを指します。</td>
+        </tr>
+        <tr>
+          <th scope="row">旧PEF原稿</th>
+          <td>基本</td>
+          <td>旧PEFの形式で作られた原稿データです。</td>
+        </tr>
+        <tr>
+          <th scope="row">声のキャラID</th>
+          <td>音声</td>
+          <td>VOICEVOXで使う声の種類を指定する番号です。</td>
+        </tr>
+        <tr>
+          <th scope="row">再生成</th>
+          <td>基本</td>
+          <td>変更内容を反映するため、EPUBをもう一度作ることです。</td>
+        </tr>
+        <tr>
+          <th scope="row">作品</th>
+          <td>基本</td>
+          <td>PEFスタジオで扱う、本や教材1件分の作業単位です。</td>
+        </tr>
+        <tr>
+          <th scope="row">作品一覧画面</th>
+          <td>基本</td>
+          <td>作品を探し、新しい原稿を取り込む最初の画面です。</td>
+        </tr>
+        <tr>
+          <th scope="row">作品辞書</th>
+          <td>辞書</td>
+          <td>その作品だけで使う、作品専用の辞書です。</td>
+        </tr>
+        <tr>
+          <th scope="row">作品詳細画面</th>
+          <td>基本</td>
+          <td>選んだ作品の辞書、読み、画像、音声、EPUBの作業へ進む中心画面です。</td>
+        </tr>
+        <tr>
+          <th scope="row">サムネイル</th>
+          <td>画像</td>
+          <td>画像一覧を画面上で速く表示するための小さな画像です。EPUBには元画像が入ります。</td>
+        </tr>
+        <tr>
+          <th scope="row">辞書</th>
+          <td>辞書</td>
+          <td>言葉と正しい読みを登録し、読み間違いを防ぐために使います。</td>
+        </tr>
+        <tr>
+          <th scope="row">辞書候補</th>
+          <td>辞書</td>
+          <td>辞書に登録するか人が確認する、読み間違いやすい言葉の候補です。</td>
+        </tr>
+        <tr>
+          <th scope="row">章タイトル</th>
+          <td>原稿</td>
+          <td>章や節の見出しとして、目次にも使われるタイトルです。行頭に「# 」を付けるか、「第1章…」などの形式で書きます。</td>
+        </tr>
+        <tr>
+          <th scope="row">セグメント</th>
+          <td>読みと息継ぎ</td>
+          <td>PEFスタジオが本文を分けて扱う、編集や音声生成の単位です。</td>
+        </tr>
+        <tr>
+          <th scope="row">装飾画像</th>
+          <td>画像alt</td>
+          <td>内容理解に必要ない飾りの画像です。装飾画像にするとaltは空欄になります。</td>
+        </tr>
+        <tr>
+          <th scope="row">代替テキスト</th>
+          <td>画像alt</td>
+          <td>『画像alt』の別名です。画像の内容を文字で補います。</td>
+        </tr>
+        <tr>
+          <th scope="row">テキスト原稿</th>
+          <td>基本</td>
+          <td>PEFスタジオに取り込む、本文を書いた.txt形式（テキストファイル）の原稿です。</td>
+        </tr>
+        <tr>
+          <th scope="row">途中保存</th>
+          <td>基本</td>
+          <td>編集途中の内容を保存し、後から作業を再開するための操作です。</td>
+        </tr>
+        <tr>
+          <th scope="row">取り込み</th>
+          <td>基本</td>
+          <td>原稿や画像ファイルをPEFスタジオへ読み込む操作です。</td>
+        </tr>
+        <tr>
+          <th scope="row">標準音声</th>
+          <td>音声</td>
+          <td>PEFスタジオが通常作る本文の読み上げ音声です。画像altは読みません。</td>
+        </tr>
+        <tr>
+          <th scope="row">編集確定</th>
+          <td>基本</td>
+          <td>読みと息継ぎの編集を終え、EPUB生成へ進める状態にする操作です。</td>
+        </tr>
+        <tr>
+          <th scope="row">ユーザ編集alt</th>
+          <td>画像alt</td>
+          <td>利用者が入力・修正した画像altです。EPUBではAI生成altより優先されます。</td>
+        </tr>
+        <tr>
+          <th scope="row">読み指定記法</th>
+          <td>読みと息継ぎ</td>
+          <td>読みを指定する書き方です。例：|漢字《かんじ》</td>
+        </tr>
+        <tr>
+          <th scope="row">読みと息継ぎ編集</th>
+          <td>読みと息継ぎ</td>
+          <td>読み方と文中の息継ぎ位置を確認・修正する工程です。</td>
+        </tr>
+        <tr>
+          <th scope="row">ローカル版</th>
+          <td>環境</td>
+          <td>自分のPC上で動かすPEFスタジオです。</td>
+        </tr>
+        <tr>
+          <th scope="row">AI APIキー</th>
+          <td>AI</td>
+          <td>AI機能を使うための認証用キーです。パスワードのように秘密にします。</td>
+        </tr>
+        <tr>
+          <th scope="row">AI生成alt</th>
+          <td>画像alt</td>
+          <td>AIが作った画像altの下書きです。内容は人が確認します。</td>
+        </tr>
+        <tr>
+          <th scope="row">AI生成対象</th>
+          <td>AI</td>
+          <td>AIに送って説明案を作る画像です。個人情報のある画像は対象から外します。</td>
+        </tr>
+        <tr>
+          <th scope="row">AI辞書候補生成</th>
+          <td>AI</td>
+          <td>AIが原稿から読み間違いやすい言葉の候補を作る機能です。</td>
+        </tr>
+        <tr>
+          <th scope="row">alt</th>
+          <td>画像alt</td>
+          <td>『画像alt』の略称です。画像の内容を補うテキストを指します。</td>
+        </tr>
+        <tr>
+          <th scope="row">Apple Books</th>
+          <td>EPUB</td>
+          <td>Apple製品のEPUBリーダーです。現在のPEFスタジオの音声付きEPUBは動作確認対象外です。</td>
+        </tr>
+        <tr>
+          <th scope="row">Colab版</th>
+          <td>環境</td>
+          <td>Google Colab上で動かすPEFスタジオです。作品データは主にGoogle Driveに保存します。</td>
+        </tr>
+        <tr>
+          <th scope="row">Dolphin EasyReader</th>
+          <td>EPUB</td>
+          <td>スマホなどで音声付きEPUBを読むためのEPUBリーダーです。</td>
+        </tr>
+        <tr>
+          <th scope="row">EPUB</th>
+          <td>EPUB</td>
+          <td>文字や画像などをまとめて読める電子書籍のファイル形式です。</td>
+        </tr>
+        <tr>
+          <th scope="row">EPUBリーダー</th>
+          <td>EPUB</td>
+          <td>EPUBファイルを開いて読む・再生するためのアプリです。</td>
+        </tr>
+        <tr>
+          <th scope="row">EPUB生成</th>
+          <td>EPUB</td>
+          <td>編集内容と音声、画像をまとめてEPUBファイルを作る操作です。</td>
+        </tr>
+        <tr>
+          <th scope="row">Google Drive</th>
+          <td>画像</td>
+          <td>オンラインの保存場所です。Colab版では作品データの保存に使います。</td>
+        </tr>
+        <tr>
+          <th scope="row">JPEG</th>
+          <td>画像</td>
+          <td>写真に向く画像形式です。拡張子は.jpgまたは.jpegです。</td>
+        </tr>
+        <tr>
+          <th scope="row">NFC</th>
+          <td>文字コード</td>
+          <td>文字をできるだけ一つにまとめて表すUnicodeの形式です。</td>
+        </tr>
+        <tr>
+          <th scope="row">NFD</th>
+          <td>文字コード</td>
+          <td>濁点などを文字と分けて表すUnicodeの形式です。見た目が同じでもNFCと内部表現が異なります。</td>
+        </tr>
+        <tr>
+          <th scope="row">PEF2</th>
+          <td>基本</td>
+          <td>現在のPEFスタジオ（Plain EPUB Factory Studio）の略称です。</td>
+        </tr>
+        <tr>
+          <th scope="row">PEFスタジオ</th>
+          <td>基本</td>
+          <td>原稿の読みや息継ぎ、画像、音声を整え、音声付きEPUBを作る制作ツールです。</td>
+        </tr>
+        <tr>
+          <th scope="row">PNG</th>
+          <td>画像</td>
+          <td>図やイラストに向く画像形式です。拡張子は.pngです。</td>
+        </tr>
+        <tr>
+          <th scope="row">Thorium</th>
+          <td>EPUB</td>
+          <td>PCでEPUBを開き、音声付きEPUBの動作確認に使える無料アプリです。</td>
+        </tr>
+        <tr>
+          <th scope="row">VOICEVOX</th>
+          <td>音声</td>
+          <td>本文の読み上げ音声を作るために使う外部の音声合成ソフトです。</td>
+        </tr>
+        <tr>
+          <th scope="row">workspace</th>
+          <td>画像</td>
+          <td>PEFスタジオが作品データを保存する作業用フォルダです。</td>
+        </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="back-to-top"><a href="#main" aria-label="本文の先頭へ戻る">上へ戻る</a></p>
+        <p class="page-end">PEFスタジオ簡易マニュアル｜v1.7-2 用語集統合・検証版</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
