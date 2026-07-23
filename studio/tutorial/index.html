@@ -1,1 +1,473 @@
-a
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PEFスタジオ・ライト 10分間クッキング</title>
+  <style>
+    :root {
+      --ink: #3f3028;
+      --muted: #5f4a3e;
+      --navy: #573a2d;
+      --blue: #ad5733;
+      --blue-soft: #fff3e8;
+      --cream: #fff8ed;
+      --line: #e2d2c3;
+      --paper: #ffffff;
+      --green: #217a50;
+      --green-soft: #edf9f2;
+      --shadow: 0 10px 28px rgba(93, 61, 44, .10);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #faf7f2;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", sans-serif;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+    a { color: var(--blue); text-underline-offset: .18em; }
+    img { display: block; width: 100%; height: auto; }
+    .skip { position: absolute; left: -9999px; top: 0; z-index: 10; padding: .7rem 1rem; background: #fff; }
+    .skip:focus { left: 1rem; top: 1rem; }
+    .hero {
+      background:
+        radial-gradient(circle at 18% 22%, rgba(240, 152, 120, .32), transparent 30%),
+        linear-gradient(135deg, #e8c4a9, #eeddcb 35%, #f8f0e8);
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: center;
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 48px 0 46px;
+    }
+    .hero-copy { min-width: 0; }
+    .hero-art {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      min-width: 0;
+    }
+    .hero-epub {
+      width: min(220px, 68%);
+      height: auto;
+      mix-blend-mode: multiply;
+    }
+    .hero-fox {
+      z-index: 1;
+      width: min(132px, 40%);
+      height: auto;
+      margin-left: -38px;
+      filter: drop-shadow(0 7px 8px rgba(94, 53, 30, .16));
+    }
+    .kicker { margin: 0 0 8px; color: #735b4c; font-size: .84rem; letter-spacing: .13em; }
+    h1 { margin: 0; font-size: clamp(2rem, 4.6vw, 3.55rem); line-height: 1.25; }
+    .hero-title-main, .hero-title-sub { display: block; }
+    .hero-title-sub { margin-top: .08em; font-size: .9em; }
+    .lead { max-width: 760px; margin: 15px 0 0; color: #4f3c31; font-size: clamp(1rem, 2vw, 1.22rem); }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 22px; color: #5f4a3e; font-size: .92rem; }
+    .route-wrap { width: min(1080px, calc(100% - 40px)); margin: -22px auto 30px; position: relative; }
+    .route {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 0;
+      padding: 8px;
+      list-style: none;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .route li { padding: 9px 12px; text-align: center; color: var(--navy); font-size: .92rem; }
+    .route li + li { border-left: 1px solid var(--line); }
+    .layout {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 28px;
+      width: min(1140px, calc(100% - 40px));
+      margin: 0 auto 72px;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 4px 18px rgba(93, 61, 44, .07);
+    }
+    .toc h2 { margin: 0 0 8px; font-size: 1rem; }
+    .toc ol { margin: 0; padding-left: 1.35rem; }
+    .toc li { margin: .34rem 0; font-size: .88rem; line-height: 1.48; }
+    .toc a { color: #42556b; text-decoration: none; }
+    .toc a:hover, .toc a:focus { color: var(--blue); text-decoration: underline; }
+    main { min-width: 0; }
+    .card {
+      margin-bottom: 26px;
+      padding: clamp(22px, 4vw, 40px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 18px;
+    }
+    .phase { margin: 0 0 3px; color: var(--blue); font-size: .78rem; font-weight: 700; letter-spacing: .13em; }
+    h2 { margin: 0 0 14px; color: var(--navy); font-size: clamp(1.38rem, 3vw, 2rem); line-height: 1.4; }
+    h3 { margin: 1.4rem 0 .45rem; color: #315777; font-size: 1.08rem; }
+    p { margin: .6rem 0; }
+    .intro, .note, .success { margin: 18px 0; padding: 16px 18px; border-radius: 12px; }
+    .intro { border-left: 5px solid var(--blue); background: var(--blue-soft); }
+    .note { border: 1px solid #e8c66f; background: var(--cream); }
+    .success { border: 1px solid #7db694; background: var(--green-soft); color: #175f3e; }
+    .placeholder {
+      display: block;
+      margin: 16px 0;
+      padding: 13px 15px;
+      border: 2px dashed #c99172;
+      border-radius: 10px;
+      color: #714631;
+      background: #fffaf6;
+      font-size: .94rem;
+    }
+    .steps { margin: 18px 0 0; padding: 0; list-style: none; counter-reset: step; }
+    .steps li {
+      position: relative;
+      min-height: 42px;
+      margin: 12px 0;
+      padding: 10px 12px 10px 53px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #fbfdff;
+    }
+    .steps li::before {
+      position: absolute;
+      left: 12px;
+      top: 10px;
+      display: grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--blue);
+      content: counter(step);
+      counter-increment: step;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .action { color: var(--navy); font-weight: 700; }
+    .files { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 18px 0; }
+    .file { padding: 13px; border: 1px solid var(--line); border-radius: 11px; background: #fbfdff; font-size: .9rem; }
+    .file span { display: block; margin-bottom: 2px; color: var(--muted); font-size: .78rem; }
+    figure { margin: 22px 0 0; }
+    .screen { overflow: hidden; border: 1px solid var(--line); border-radius: 13px; background: #f4eee8; }
+    .screen--annotated { position: relative; }
+    .callout {
+      position: absolute;
+      z-index: 2;
+      border: clamp(3px, .45vw, 5px) solid #d84e2f;
+      border-radius: 999px;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, .88);
+      pointer-events: none;
+    }
+    .callout::after {
+      position: absolute;
+      left: calc(100% + 8px);
+      top: 50%;
+      width: max-content;
+      padding: 2px 7px;
+      border-radius: 6px;
+      color: #802c1b;
+      background: rgba(255, 248, 238, .94);
+      content: "← ここを押す";
+      font-size: clamp(.62rem, 1.5vw, .92rem);
+      font-weight: 700;
+      line-height: 1.45;
+      transform: translateY(-50%);
+    }
+    .callout--run { left: 6.7%; top: 88.1%; width: 5.4%; aspect-ratio: 1; }
+    .callout--reading { left: 13.2%; top: 5.9%; width: 8.8%; height: 11.2%; border-radius: 14px; }
+    .callout--generate { left: 4.1%; top: 64.5%; width: 9.1%; height: 17%; border-radius: 14px; }
+    .callout--download { left: 3.4%; top: 63%; width: 11.4%; height: 20%; border-radius: 14px; }
+    figcaption { margin-top: 7px; color: var(--ink); font-size: .9rem; }
+    .reader-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; margin-top: 18px; }
+    .reader { padding: 17px; border: 1px solid var(--line); border-radius: 12px; background: #fbfdff; }
+    .reader h3 { margin: 0 0 5px; }
+    .reader p { margin: .25rem 0; }
+    .platform { color: var(--muted); font-size: .88rem; }
+    .manual-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 16px;
+      border: 1px solid #c99172;
+      border-radius: 10px;
+      background: #fff8f0;
+      font-weight: 700;
+    }
+    .site-footer {
+      margin-top: 18px;
+      padding: 30px 20px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 50%, rgba(240, 152, 120, .30), transparent 24%),
+        linear-gradient(135deg, #f8f0e8, #eeddcb 65%, #e8c4a9);
+      text-align: center;
+    }
+    .site-footer p { margin: 0; font-size: clamp(.94rem, 2vw, 1.08rem); }
+    @media (max-width: 820px) {
+      .hero-inner, .route-wrap { width: min(100% - 28px, 680px); }
+      .hero-inner { grid-template-columns: 1fr; gap: 20px; padding: 38px 0 42px; }
+      .hero-art { width: min(330px, 92%); margin: 0 auto; }
+      .hero-epub { width: min(190px, 65%); }
+      .hero-fox { width: min(112px, 38%); margin-left: -30px; }
+      .route { grid-template-columns: repeat(2, 1fr); }
+      .route li:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+      .route li:nth-child(4) { border-top: 1px solid var(--line); }
+      .layout { display: block; width: min(100% - 28px, 680px); }
+      .toc { position: static; margin-bottom: 18px; }
+      .files, .reader-grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .hero { color: var(--ink); background: #fff; border-bottom: 2px solid var(--navy); }
+      .hero-art { display: none; }
+      .route-wrap { margin: 14px auto; }
+      .layout { display: block; width: 100%; margin: 0; }
+      .toc { display: none; }
+      .card { break-inside: avoid; box-shadow: none; }
+      a { color: inherit; }
+      .site-footer { background: #fff; border-top: 2px solid var(--navy); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="kicker">GOOGLE COLAB版</p>
+        <h1><span class="hero-title-main">PEFスタジオ・ライト</span><span class="hero-title-sub">10分間クッキング</span></h1>
+        <p class="lead">練習用の原稿と画像から、音声付きEPUBを1冊作ります。</p>
+        <div class="meta">
+          <span>操作時間の目安：約10分</span>
+          <span>AI機能は使いません</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <img class="hero-epub" src="images/10-epub-icon.png" alt="">
+        <img class="hero-fox" src="images/11-fox-pointing.png" alt="">
+      </div>
+    </div>
+  </header>
+
+  <div class="route-wrap" aria-label="チュートリアルの流れ">
+    <ol class="route">
+      <li>材料をそろえる</li>
+      <li>準備する</li>
+      <li>調理する</li>
+      <li>試食する</li>
+    </ol>
+  </div>
+
+  <div class="layout">
+    <nav class="toc" aria-label="目次">
+      <h2>このページの内容</h2>
+      <ol>
+        <li><a href="#materials">用意するもの</a></li>
+        <li><a href="#colab">Colab版を起動する</a></li>
+        <li><a href="#import">本文を取り込む</a></li>
+        <li><a href="#dictionary">「夜だか」を直す</a></li>
+        <li><a href="#reading">読みと息継ぎを確認</a></li>
+        <li><a href="#images">画像2枚を読み込む</a></li>
+        <li><a href="#epub">EPUBを作る</a></li>
+        <li><a href="#finish">完成</a></li>
+        <li><a href="#readers">リーダーを選ぶ</a></li>
+        <li><a href="#next">次に進むなら</a></li>
+      </ol>
+    </nav>
+
+    <main id="main">
+      <section class="card" id="materials">
+        <p class="phase">材料 · 1</p>
+        <h2>用意するもの</h2>
+        <p>練習用データのフォルダに、次の3ファイルがあることを確認します。</p>
+        <div class="files">
+          <div class="file"><span>原稿</span>よだかの星_練習用.txt</div>
+          <div class="file"><span>画像 1</span>よだか1.png</div>
+          <div class="file"><span>画像 2</span>よだか2.png</div>
+        </div>
+        <p>原稿を開き、途中に「［図:よだか1.png］」「［図:よだか2.png］」が入っていることも見ておきましょう。</p>
+        <figure>
+          <div class="screen"><img src="images/01-materials.png" alt="練習用原稿。本文の途中に、よだか1.pngとよだか2.pngの図指定が入っている。"></div>
+          <figcaption>この図指定を手がかりに、あとで2枚の画像を配置します。</figcaption>
+        </figure>
+      </section>
+
+      <section class="card" id="colab">
+        <p class="phase">準備 · 2</p>
+        <h2>Colab版を起動する</h2>
+        <div class="intro">共有されたColabノートブックを開いたところから始めます。初回だけ、自分のGoogleドライブにコピーを保存します。</div>
+        <span class="placeholder">［Colab版のURLをここに入れます］</span>
+        <ol class="steps">
+          <li>上のURLから、PEFスタジオ・ライトのColabノートブックを開きます。</li>
+          <li>初回は、メニューの<span class="action">「ファイル」→「ドライブにコピーを保存」</span>を選びます。次回からは、そのコピーを開きます。</li>
+          <li>説明の下にある最初のプログラム枠を選び、左側の<span class="action">実行ボタン（▶）</span>を押します。</li>
+          <li>1〜2分ほど待ち、最後に表示される青い<span class="action">「公開用URL」</span>を押します。</li>
+          <li>別のタブにPEFスタジオが開いたら、準備完了です。</li>
+        </ol>
+        <figure>
+          <div class="screen screen--annotated">
+            <img src="images/02-colab-notebook.png" alt="PEFスタジオ・ライトのColabノートブック。はじめかたの説明と、最初の実行ボタンが見える。">
+            <span class="callout callout--run" aria-hidden="true"></span>
+          </div>
+          <figcaption>まず「はじめかた」を読み、その下にある最初の実行ボタンを押します。</figcaption>
+        </figure>
+        <figure>
+          <div class="screen"><img src="images/03-public-url.png" alt="Colabの実行結果。環境の準備完了後に青い公開用URLが表示されている。"></div>
+          <figcaption>青い公開用URLを押すと、PEFスタジオが別タブで開きます。</figcaption>
+        </figure>
+        <div class="note">今回はAI機能を使わないので、APIキーの設定は不要です。Colabを終了すると作業データは消えるため、完成したEPUBは終了前にダウンロードしてください。公開用URLは、ほかの人に共有しないでください。</div>
+      </section>
+
+      <section class="card" id="import">
+        <p class="phase">調理 · 3</p>
+        <h2>本文を取り込む</h2>
+        <ol class="steps">
+          <li>作品一覧で<span class="action">「テキスト原稿を取り込む」</span>を押します。</li>
+          <li>作品名に「よだかの星 練習用」と入力します。</li>
+          <li>txtファイルに<span class="action">「よだかの星_練習用.txt」</span>を選び、<span class="action">「取り込む」</span>を押します。</li>
+          <li>作品詳細が開き、「原稿は取り込み済みです。」と表示されたことを確認します。</li>
+        </ol>
+        <figure>
+          <div class="screen"><img src="images/04-import-form.png" alt="テキスト原稿取り込み画面。作品名、txtファイルの入力欄と取り込むボタンが見える。"></div>
+          <figcaption>作品名と原稿ファイルを指定して取り込みます。</figcaption>
+        </figure>
+      </section>
+
+      <section class="card" id="dictionary">
+        <p class="phase">調理 · 4</p>
+        <h2>「夜だか」の読みを直す</h2>
+        <p>今回は、辞書編集機能で、単語の追加を体験します。</p>
+        <ol class="steps">
+          <li>作品詳細の辞書カードで<span class="action">「辞書を編集する」</span>を押します。</li>
+          <li>「辞書項目を追加」の単語に<span class="action">「夜だか」</span>、読みに<span class="action">「ヨダカ」</span>と入力します。</li>
+          <li><span class="action">「項目を追加」</span>を押し、追加した行が「採用」になっていることを確認します。</li>
+          <li><span class="action">「保存する」</span>を押します。</li>
+        </ol>
+        <figure>
+          <div class="screen"><img src="images/05-dictionary-add.png" alt="辞書項目の追加欄。単語に夜だか、読みにヨダカが入力され、項目を追加ボタンが見える。"></div>
+          <figcaption>単語と読みを入力して、辞書へ追加します。</figcaption>
+        </figure>
+      </section>
+
+      <section class="card" id="reading">
+        <p class="phase">調理 · 5</p>
+        <h2>読みと息継ぎを確認する</h2>
+        <p>今回は、「読み」の確認だけ体験します。</p>
+        <ol class="steps">
+          <li>作品詳細の「読みと息継ぎ編集」カードで<span class="action">「確認・編集する」</span>を押します。</li>
+          <li>読み上げ用テキストに<span class="action">「夜だか《ヨダカ》」</span>と表示されていることを確認します。</li>
+          <li>今回は細かな編集をせず、画面上部の<span class="action">「編集確定」</span>を押します。</li>
+        </ol>
+        <figure>
+          <div class="screen screen--annotated">
+            <img src="images/06-reading-confirm.png" alt="読みと息継ぎ編集画面。編集確定ボタンと、夜だか《ヨダカ》が反映された読み上げ用テキストが見える。">
+            <span class="callout callout--reading" aria-hidden="true"></span>
+          </div>
+          <figcaption>「ヨダカ」を確認したら、そのまま編集確定します。</figcaption>
+        </figure>
+      </section>
+
+      <section class="card" id="images">
+        <p class="phase">調理 · 6</p>
+        <h2>画像2枚をまとめて読み込む</h2>
+        <ol class="steps">
+          <li>作品詳細の画像カードで<span class="action">「確認・編集する」</span>を押します。</li>
+          <li>「画像をまとめて読み込む」の<span class="action">「ファイル選択」</span>を押します。</li>
+          <li><span class="action">よだか1.png と よだか2.png</span>を同時に選びます。</li>
+          <li><span class="action">「画像をまとめて読み込む」</span>を押します。</li>
+          <li>「新規 2件」と表示されたことを確認します。</li>
+        </ol>
+        <div class="note">今回は、画像の代替テキスト（alt）の入力は行いません。2枚そろったことを確認したら、作品詳細へ戻ります。</div>
+        <figure>
+          <div class="screen"><img src="images/07-images-complete.png" alt="画像の一括読み込み結果。画像ファイルを一括で読み込みました、新規2件と表示されている。"></div>
+          <figcaption>「新規 2件」が、2枚とも読み込めた合図です。</figcaption>
+        </figure>
+      </section>
+
+      <section class="card" id="epub">
+        <p class="phase">調理 · 7</p>
+        <h2>EPUBを生成してダウンロードする</h2>
+        <ol class="steps">
+          <li>作品詳細のEPUBカードで<span class="action">「EPUB生成」</span>を押します。</li>
+          <li>音声生成とEPUB作成が終わるまで待ちます。</li>
+          <li>「EPUBは作成済みです。」と表示されたら、<span class="action">「ダウンロード」</span>を押します。</li>
+        </ol>
+        <p>音声生成には少し時間がかかります。画面を閉じず、そのまま待ちましょう。</p>
+        <figure>
+          <div class="screen screen--annotated">
+            <img src="images/08-epub-generate.png" alt="生成できますと表示されたEPUBカード。EPUB生成ボタンが見える。">
+            <span class="callout callout--generate" aria-hidden="true"></span>
+          </div>
+          <figcaption>「生成できます」を確認して、EPUB生成を押します。</figcaption>
+        </figure>
+        <figure>
+          <div class="screen screen--annotated">
+            <img src="images/09-epub-download.png" alt="作成済みのEPUBカード。ダウンロードボタンが見える。">
+            <span class="callout callout--download" aria-hidden="true"></span>
+          </div>
+          <figcaption>完成したら、Colabを終了する前にダウンロードします。</figcaption>
+        </figure>
+      </section>
+
+      <section class="card" id="finish">
+        <p class="phase">完成 · 8</p>
+        <h2>ダウンロードできたら完成です</h2>
+        <div class="success">音声付きEPUBを1冊作り、パソコンへ保存できました。これが今回のゴールです。</div>
+        <p>これでまずは1冊の音声付きEPUBが作成できました。ほかの機能は、次回から少しずつ試していきましょう。</p>
+      </section>
+
+      <section class="card" id="readers">
+        <p class="phase">試食 · 9</p>
+        <h2>EPUBを開くリーダー</h2>
+        <figure>
+          <div class="screen"><img src="images/12-epub-playing.png" alt="Thorium Readerで音声付きEPUBを再生している画面。本文の読み上げ位置が黄色で強調され、画像も表示されている。"></div>
+          <figcaption>Thorium Readerで、完成した音声付きEPUBを再生しているところです。</figcaption>
+        </figure>
+        <p>ダウンロードしたEPUBは、音声付きEPUBに対応したリーダーで開けます。使い方は、アプリのマニュアルをご覧ください。</p>
+        <div class="reader-grid">
+          <article class="reader">
+            <h3>Thorium Reader</h3>
+            <p class="platform">Windows・Mac・Linux</p>
+            <p><a href="https://thorium.edrlab.org/en/">Thorium Reader 公式サイト</a></p>
+          </article>
+          <article class="reader">
+            <h3>Dolphin EasyReader</h3>
+            <p class="platform">iPhone・iPad</p>
+            <p><a href="https://apps.apple.com/jp/app/dolphin-easyreader/id1161662515">App Store</a></p>
+            <p class="platform">Android</p>
+            <p><a href="https://play.google.com/store/apps/details?id=com.yourdolphin.easyreader&amp;hl=ja">Google Play</a></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card" id="next">
+        <p class="phase">次へ · 10</p>
+        <h2>次に進むなら・・・</h2>
+        <p>ほかの機能や詳しい操作を試したくなったら、「PEFスタジオ簡易マニュアル」をご覧ください。</p>
+        <a class="manual-link" href="https://corriedale99.github.io/pef/studio/manual/">PEFスタジオ簡易マニュアルを開く</a>
+      </section>
+    </main>
+  </div>
+  <footer class="site-footer">
+    <p>PEFスタジオが、読字障害のある方々の一助となることを願っています。</p>
+  </footer>
+</body>
+</html>
